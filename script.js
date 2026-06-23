@@ -1,4 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Hamburger Menu Toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // 2. Fade-in on scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const fadeObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    fadeElements.forEach(el => fadeObserver.observe(el));
+
+    // 3. Stats Counter Animation
     const statNumbers = document.querySelectorAll('.stat-number');
     
     const animateStats = (entries, observer) => {

@@ -31,6 +31,10 @@ body {
     overflow-x: hidden;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     color: var(--text-dark);
@@ -186,6 +190,16 @@ section { padding: 100px 0; }
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    padding: 5px;
 }
 
 /* 3. Hero Section */
@@ -499,6 +513,17 @@ section { padding: 100px 0; }
     align-items: center;
 }
 
+/* Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* Responsive */
 @media (max-width: 992px) {
     .grid-4 { grid-template-columns: repeat(2, 1fr); }
@@ -509,10 +534,42 @@ section { padding: 100px 0; }
     .stats-inner { flex-wrap: wrap; gap: 20px; }
     .stat-item { flex: 0 0 45%; border: none; }
 }
+
 @media (max-width: 768px) {
     .grid-3, .grid-4 { grid-template-columns: 1fr; }
-    .header-inner { flex-direction: column; gap: 20px; }
-    .nav-links { flex-wrap: wrap; justify-content: center; }
+    
+    /* Top bar stacking */
+    .top-bar-inner { flex-direction: column; gap: 10px; text-align: center; }
+    .top-bar-left span { display: block; margin-right: 0; margin-bottom: 5px; }
+    
+    /* Mobile Navigation */
+    .header-inner { flex-wrap: wrap; }
+    .mobile-menu-toggle { display: block; }
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 0;
+        text-align: center;
+        border-top: 1px solid #eee;
+        margin-top: 20px;
+    }
+    .nav-links.active { display: flex; }
+    
     .footer-grid { grid-template-columns: 1fr; }
-    .photo-strip img { width: 33.333%; }
+    .photo-strip img { width: 50%; }
+    
+    /* Typography & Spacing tweaks for mobile */
+    .hero-title { font-size: 2.2rem; }
+    .section-title { font-size: 2rem; margin-bottom: 30px; }
+    section { padding: 60px 0; }
+    .container.section, section.container { padding: 60px 20px; }
+    .stat-number { font-size: 2.5rem; }
+}
+
+@media (max-width: 480px) {
+    .hero-title { font-size: 1.8rem; }
+    .stat-item { flex: 0 0 100%; }
+    .photo-strip img { width: 100%; }
 }
